@@ -9,6 +9,9 @@ use Yii;
  *
  * @property int $id
  * @property string $descripcion
+ * @property int $plan_id
+ *
+ * @property Plan $plan
  */
 class Tarea extends \yii\db\ActiveRecord
 {
@@ -26,8 +29,10 @@ class Tarea extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descripcion'], 'required'],
+            [['descripcion', 'plan_id'], 'required'],
+            [['plan_id'], 'integer'],
             [['descripcion'], 'string', 'max' => 500],
+            [['plan_id'], 'exist', 'skipOnError' => true, 'targetClass' => Plan::class, 'targetAttribute' => ['plan_id' => 'id']],
         ];
     }
 
@@ -39,7 +44,18 @@ class Tarea extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'descripcion' => 'Descripcion',
+            'plan_id' => 'Plan ID',
         ];
+    }
+
+    /**
+     * Gets query for [[Plan]].
+     *
+     * @return \yii\db\ActiveQuery|\common\models\query\PlanQuery
+     */
+    public function getPlan()
+    {
+        return $this->hasOne(Plan::class, ['id' => 'plan_id']);
     }
 
     /**
