@@ -51,7 +51,7 @@ class Plan extends \yii\db\ActiveRecord
      */
     public function getTareas()
     {
-        return $this->hasMany(Tareas::class, ['plan_id' => 'id']);
+        return $this->hasMany(Tarea::class, ['plan_id' => 'id']);
     }
 
     /**
@@ -61,5 +61,9 @@ class Plan extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \common\models\query\PlanQuery(get_called_class());
+    }
+
+    public function fields(){
+        return ['id','nombre','tareas'];
     }
 }

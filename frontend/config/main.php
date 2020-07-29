@@ -45,7 +45,7 @@ return [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'tarea'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['tarea','plan']],
             ],
         ],
        
